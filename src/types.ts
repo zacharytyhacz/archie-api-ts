@@ -219,8 +219,12 @@ export interface Booking {
   field_results: unknown | null
   approval_status: string
 
-  user_subscriber: User
-  user_beneficiary: User
+  user_subscriber?: User
+  user_beneficiary?: User
+
+  group_subscriber?: Group
+  group_beneficiary?: Group
+
   responsible: User
 
   conference_room: ConferenceRoom
