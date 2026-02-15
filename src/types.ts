@@ -189,47 +189,43 @@ export interface BookingRecurrence {
 }
 
 export interface Booking {
-  abandoned_protection_start_date: string
-  advanced_check_in_start_date: string
-  approval_status: string
-  approval_user: User
-  attendees_count: number
-  beneficiary_type: string
-  beneficiary_uuid: string
-  booking_key: string
-  buffer_time: number
-  cancelled: boolean
-  check_in: CheckIn
-  conference_room: ConferenceRoom
-  continuous: boolean
-  creation_date: string
-  credits: number
-  description: string
-  end_date: string
-  field_results: CustomFieldResult[]
-  full_day: boolean
-  has_conflict: boolean
-  href: string
-  is_master: boolean
-  item_type: string
-  item_uuid: string
-  name: string
-  note: string
-  only_physical_check_in: boolean
-  payer_type: string
-  period_count: number
-  period_unit: string
-  product: Product
-  recurrence: BookingRecurrence
-  reservation_number: string
-  responsible: User
-  start_date: string
-  subscriber_type: string
-  subscriber_uuid: string
-  update_date: string
   uuid: string
-  video_conferencing_link_type: string
+  creation_date: string
+  update_date: string
+  href: string
+  subscriber_type: string
+  beneficiary_type: string
+  item_type: string
+  start_date: string
+  only_physical_check_in: boolean
+  continuous: boolean
+  end_date: string
+  period_unit: string
+  period_count: number
+  note: string
+  name: string
+  description: string
+  full_day: boolean
+  attendees_count: number
+  reservation_number: string
+  attendees_notified: unknown[]
   visibility: string
+  check_ins: unknown[]
+  booking_key: string
+  is_master: boolean
+  shared_dates: unknown[]
+  cancelled: boolean
+  buffer_time: number
+  field_results: unknown | null
+  approval_status: string
+
+  user_subscriber: User
+  user_beneficiary: User
+  responsible: User
+
+  conference_room: ConferenceRoom
+  space: Space
+  invoice: Invoice
 }
 
 export type BookingCreate =
@@ -683,7 +679,7 @@ export interface Event {
   external_tickets_sale_link: string
   href: string
   slug: string
-  space: unknown
+  space: Space
   start_date: string
   tickets: unknown[]
   title: string
@@ -1432,4 +1428,180 @@ export interface VisitListParams
   badge?: string
   hostName?: string
   guestName?: string
+}
+
+export interface Space {
+  uuid: string
+  creation_date: string
+  update_date: string
+  href: string
+  name: string
+  slug: string
+  domain: string
+  calling_code: string
+  phone: string
+  website: string
+  social_networks: SocialNetworks
+  external_booking: boolean
+  external_workspace_booking: boolean
+  external_shop: boolean
+  external_events: boolean
+  book_a_tour: boolean
+  leads_form: boolean
+  external_office_booking: boolean
+  time_zone: string
+  language: string
+  date_format: string
+  time_format: string
+  first_day_of_week: string
+  surface_unit: string
+  enable_global_message: boolean
+  global_message_text: string
+  global_message_link: string
+  theme: string
+  type: string
+  kind: string
+  is_demo: boolean
+  demo_sales_contact: string
+  ios_mobile_app_store_link: string
+  android_mobile_app_store_link: string
+  apps_flyers_link: string
+  one_signal_app_id: string
+  one_signal_app_secret: string
+  google_tag_manager_id: string
+  google_analytics_id: string
+  allow_group_manage_members: boolean
+  suspended_temporarily: boolean
+  dynamic_billing_day: boolean
+  visitor_self_check_out: boolean
+  visitor_auto_check_out: boolean
+  set_new_accounts_auto_charge: boolean
+  self_sign_up: boolean
+  automatic_credit_note_charge: boolean
+  automatic_prepayment_charge: boolean
+  minimum_time_interval: number
+  hide_archie_branding: boolean
+  half_day_break: string
+  stripe_customer_id: string
+  external_shop_description: string | null
+  external_booking_description: string | null
+  external_workspace_booking_description: string | null
+  external_office_booking_description: string | null
+  external_resource_booking_description: string | null
+  street_address: string
+  city: string
+  postal_code: string
+  state_province_region: string
+  country: string
+  billing_street_address: string
+  billing_city: string
+  billing_postal_code: string
+  billing_state_province_region: string
+  billing_country: string
+  currency: string
+  business_hours: BusinessHour[]
+  custom_hours: CustomHour[]
+  billing_day: number
+  invoice_reminder_delay_day: number | null
+  booking_reminder_delay_minute: number | null
+  limit_bookings_same_category: number | null
+  show_prices_with_taxes: boolean
+  primary_color: string
+  booking_bill_from_booking_date: boolean
+  business_number_name: string | null
+  business_number: string | null
+  menu_tabs_hidden: string[]
+  menu_tab_extensions: unknown[]
+  emails_sent_count: number
+  document_signatures_reminder_delay_day: number | null
+  tablet_rooms_settings: Record<string, unknown>
+  tablet_visitor_settings: TabletVisitorSettings
+  evacuation_settings: EvacuationSettings
+  redirect_after_sign_in: string
+  invoice_document_name: string
+  credit_note_document_name: string
+  disable_recurring_booking: boolean
+  user_integrations_enabled: string[]
+  user_fields_hidden: UserFieldsHidden
+  user_fields_visibility: UserFieldsVisibility
+  integrations: Record<string, unknown>
+  is_primary_location: boolean
+  booking_configuration: BookingConfiguration
+  visit_check_in_policies: VisitCheckInPolicies
+  user_status: string
+  invoice_counter: number | null
+  credit_note_counter: number | null
+  payment_method_rules: unknown[]
+  features: unknown | null
+}
+
+export type SocialNetworks = {
+  facebook: string
+  instagram: string
+  twitter: string
+}
+
+export type BusinessHour = {
+  start: string
+  end: string
+  day: string
+}
+
+export type CustomHour = {
+  date: string
+  reason: string
+  filter_segments: unknown[]
+}
+
+export type TabletVisitorSettings = {
+  enable_deliveries: boolean
+  user_notification_delivery_mode: string
+  custom_delivery_message: string
+  delivery_preselected_users: unknown | null
+  force_visit_flow_segments: unknown | null
+}
+
+export type EvacuationSettings = {
+  enable_alerts: boolean
+  start_instructions: string
+  phone_number: string
+  calling_code: string
+  end_instructions: string
+  start_pictures: unknown[]
+}
+
+export type UserFieldsHidden = {
+  gender: boolean
+  profile_picture: boolean
+  birthday: boolean
+  emergency_contact: boolean
+}
+
+export type UserFieldsVisibility = {
+  gender: string
+  profile_picture: string
+  birthday: string
+  emergency_contact: string
+  firstname: string
+  lastname: string
+  email: string
+  phone: string
+}
+
+export type BookingConfiguration = {
+  room_booking_admins_display: string
+  room_booking_users_display: string
+  desk_booking_admins_display: string
+  desk_booking_users_display: string
+  office_booking_admins_display: string
+  office_booking_users_display: string
+  check_in_policies: unknown[]
+  abandoned_protection_policies: unknown[]
+}
+
+export type VisitCheckInPolicies = {
+  advanced_check_in_window_period_count: number
+  advanced_check_in_window_period_unit: string
+  in_window_auto_check_in: boolean
+  only_physical_check_in: boolean
 }
